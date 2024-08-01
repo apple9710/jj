@@ -1,26 +1,20 @@
 import React, { useState } from "react";
-import { businessData } from "./Business/businessData";
-import { Content } from "./Business/content";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-const Business: React.FC = () => {
-  const [menu, setMenu] = useState<string>("certificate");
+const Road: React.FC = () => {
+  const [menu, setMenu] = useState<string>("road");
 
   const handleChangeMenu = (e: React.MouseEvent<HTMLLIElement>) => {
     setMenu(e.currentTarget.id);
   };
 
-  const tabMenu = [
-    { id: "certificate", text: "소방완비필증" },
-    { id: "facility", text: "소방시설공사" },
-    { id: "sprinkler", text: "스프링클러" },
-    { id: "retardant", text: "방염" },
-  ];
+  const tabMenu = [{ id: "road", text: "오시는길" }];
 
   return (
     <main className="flex flex-col justify-start items-center">
       <img
-        src="/Business_banner.png"
-        alt="사업분야 banner"
+        src="/Road_banner.png"
+        alt="intro banner"
         className="w-full h-[300px] bg-cover bg-no-repeat"
       />
 
@@ -43,13 +37,20 @@ const Business: React.FC = () => {
         </ul>
       </nav>
 
-      <section className="flex flex-col justify-start items-center w-[85%] my-[64px]">
-        {menu === "certificate" && <Content data={businessData.certificate} />}
-        {menu === "facility" && <Content data={businessData.facility} />}
-        {menu === "sprinkler" && <Content data={businessData.sprinkler} />}
-        {menu === "retardant" && <Content data={businessData.retardant} />}
+      <section className="flex flex-col justify-center items-center w-full mt-[30px] px-[200px] pb-[100px] z-[-10]">
+        <Map
+          center={{ lat: 37.646411, lng: 127.1251 }}
+          level={2}
+          className="w-full h-[450px]"
+        >
+          <MapMarker position={{ lat: 37.646411, lng: 127.1251 }}></MapMarker>
+        </Map>
+        <div className="w-full mt-[20px]">
+          경기도 화성시 수노을중앙로 142 센타프라자 507호
+        </div>
       </section>
     </main>
   );
 };
-export default Business;
+
+export default Road;

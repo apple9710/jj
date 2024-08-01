@@ -1,13 +1,12 @@
 export const Content = ({ data }: any) => {
   return (
-    <div className="flex flex-col justify-start items-center w-full">
-      <img
-        src={data.image}
-        alt=""
-        className="w-[1250px] h-[700px] mb-[100px]"
-      />
+    <div className="flex flex-col justify-start items-center w-full leading-6">
+      <img src={data.image} alt="" className="w-[800px] h-[450px] mb-[100px]" />
       <div className="flex flex-col justify-start items-start">
-        <div className="mb-[40px] text-[32px] font-bold text-main">{data.title}</div>
+        <div className="mb-[40px] text-main">
+          <div className="mb-[24px] text-[32px] font-bold ">{data.title}</div>
+          <div className="pl-[10px]">- {data.description}</div>
+        </div>
         <ul className="flex flex-col justify-start items-start w-full">
           {data.contents?.map((obj: any, index: number) => (
             <li
@@ -21,9 +20,9 @@ export const Content = ({ data }: any) => {
                 <div className="">{obj.content}</div>
               </div>
               {obj.subContent !== null && (
-                <ul className="mt-[10px] pl-[80px]">
+                <ul className="mt-[10px] mb-[20px] pl-[80px]">
                   {obj.subContent?.map((el: any, idx: number) => (
-                    <li key={`sub${idx}`} className="my-[10px] list-disc">
+                    <li key={`sub${idx}`} className="my-[12px] list-disc">
                       {el}
                     </li>
                   ))}

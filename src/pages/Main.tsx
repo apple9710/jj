@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import main1 from "../assets/image/main1.png";
 import main_intro from "../assets/image/main_intro.png";
 import main_intro_bg from "../assets/image/main_intro_bg.png";
 import main_partner from "../assets/image/main_partner.png";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { ReactComponent as Arrow } from "../assets/image/Arrow.svg";
 
 const Main: React.FC = () => {
+  const infoRef = useRef<any>();
+  const [info, setInfo] = useState<number>(1);
+
+  const handleLeft = () => {
+    if (info > 1) {
+      infoRef.current.scrollLeft =
+        infoRef.current?.scrollLeft - infoRef.current?.offsetWidth;
+      setInfo(info - 1);
+    }
+  };
+
+  const handleRight = () => {
+    if (info < 4) {
+      infoRef.current.scrollLeft =
+        infoRef.current?.scrollLeft + infoRef.current?.offsetWidth;
+      setInfo(info + 1);
+    }
+  };
+
   return (
     <main className="bg-slate-300 w-screen min-h-[calc(100vh-90px)]">
       {/* Main banner */}
       <div
-        className="w-full h-[calc(100vh-90px)] bg-cover bg-center"
+        className="w-full h-[calc(100vh-90px)] bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url(${main1})`,
         }}
@@ -18,11 +38,11 @@ const Main: React.FC = () => {
 
       {/* Introduce */}
       <div
-        className="flex justify-center items-center w-full py-[155px]"
+        className="flex justify-center items-center w-full h-[calc(100vh-90px)] py-[155px]"
         style={{ backgroundImage: `url(${main_intro_bg})` }}
       >
         <div
-          className="flex justify-center items-center w-full h-[720px] bg-black"
+          className="flex justify-center items-center w-full h-[calc(100vh-220px)] bg-black bg-no-repeat"
           style={{
             backgroundImage: `url(${main_intro})`,
           }}
@@ -51,89 +71,135 @@ const Main: React.FC = () => {
       </div>
 
       {/* Information */}
-      <div className="bg-black flex justify-start items-center w-full py-[170px] px-[40px] text-white overflow-x-auto whitespace-nowrap">
-        <div className="flex justify-start items-end mx-[60px]">
-          <img src="" alt="" className="w-[640px] h-[550px] mr-[90px]" />
-          <div>
-            <div className="relative mb-[50px] font-bold text-[64px]">
-              <span className="absolute top-[-64px] left-0 z-20">
-                소비완비증명
-              </span>
-              <span className="absolute top-[-180px] right-[280px] font-normal text-[150px] text-slate-400">
-                01
-              </span>
-            </div>
-            <div className="flex flex-col justify-around items-start h-[180px] mb-[64px] text-[32px]">
-              <span>다중이용업소에 소방시설등 및 영업장 내부 피난통로</span>
-              <span>그 밖의 안전시설이 적법하게 설치된 경우</span>
-              <span>적법사실을 소방서장이 증명하는 증명서를 발급받아야</span>
-              <span>영업허가를 받을 수 있습니다.</span>
-            </div>
-          </div>
-        </div>
+      <section className="relative w-full h-[calc(100vh-90px)] bg-black text-white">
+        <div
+          ref={infoRef}
+          className="flex justify-start items-center w-full h-full overflow-x-auto overflow-hidden transition duration-300 ease-in-out"
+        >
+          {info > 1 && (
+            <Arrow
+              onClick={handleLeft}
+              className="absolute w-[60px] h-[60px] left-[36px] rotate-180 cursor-pointer"
+            />
+          )}
+          {info < 4 && (
+            <Arrow
+              onClick={handleRight}
+              className="absolute w-[60px] h-[60px] right-[36px] cursor-pointer"
+            />
+          )}
+          <div className="flex justify-center items-end min-w-[100vw]">
+            <img
+              src="/Main_Info1.png"
+              alt=""
+              className="w-[450px] h-[450px] mr-[90px]"
+            />
+            <div className="flex flex-col justify-end items-start">
+              <div className="relative mb-[50px] font-bold text-[48px] z-0">
+                소방완비필증
+                <span className="absolute bottom-[24px] right-[-80px] font-normal text-[100px] text-slate-400 z-[-30]">
+                  01
+                </span>
+              </div>
 
-        <div className="flex justify-start items-end mx-[60px]">
-          <img src="" alt="" className="w-[640px] h-[550px] mr-[90px]" />
-          <div>
-            <div className="relative mb-[50px] font-bold text-[64px]">
-              <span className="absolute top-[-64px] left-0 z-20">
+              <div className="flex flex-col justify-start items-start h-[180px] mb-[32px] text-[24px]">
+                <span className="my-[8px]">
+                  다중이용업소에 소방시설등 및 영업장 내부 피난통로
+                </span>
+                <span className="my-[8px]">
+                  그 밖의 안전시설이 적법하게 설치된 경우
+                </span>
+                <span className="my-[8px]">
+                  적법사실을 소방서장이 증명하는 증명서를 발급받아야
+                </span>
+                <span className="my-[8px]">영업허가를 받을 수 있습니다.</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-center items-end min-w-[100vw]">
+            <img
+              src="/Main_Info2.png"
+              alt=""
+              className="w-[450px] h-[450px] mr-[90px]"
+            />
+            <div className="flex flex-col justify-end items-start">
+              <div className="relative mb-[50px] font-bold text-[48px] z-0">
                 소방시설공사
-              </span>
-              <span className="absolute top-[-180px] right-[280px] font-normal text-[150px] text-slate-400">
-                02
-              </span>
-            </div>
-            <div className="flex flex-col justify-around items-start h-[180px] mb-[64px] text-[32px]">
-              <span>
-                건축물에 설치되는 소방시설을 화재안전기준에 적합하도록
-              </span>
-              <span>
-                설치하는 신설공사와 관리 또는 결핍사항에 대한 보수공사를
-                수행합니다.
-              </span>
+                <span className="absolute bottom-[24px] right-[-80px] font-normal text-[100px] text-slate-400 z-[-30]">
+                  02
+                </span>
+              </div>
+              <div className="flex flex-col justify-start items-start h-[180px] mb-[32px] text-[24px]">
+                <span className="my-[8px]">
+                  건축물에 설치되는 소방시설을 화재안전기준에 적합하도록
+                </span>
+                <span className="my-[8px]">
+                  설치하는 신설공사와 관리 또는 결핍사항에 대한 보수공사를
+                  수행합니다.
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="flex justify-start items-end mx-[60px]">
-          <img src="" alt="" className="w-[640px] h-[550px] mr-[90px]" />
-          <div>
-            <div className="relative mb-[50px] font-bold text-[64px]">
-              <span className="absolute top-[-64px] left-0 z-20">
+
+          <div className="flex justify-center items-end min-w-[100vw]">
+            <img
+              src="/Main_Info3.png"
+              alt=""
+              className="w-[450px] h-[450px] mr-[90px]"
+            />
+            <div className="flex flex-col justify-end items-start">
+              <div className="relative mb-[50px] font-bold text-[48px] z-0">
                 스프링클러
-              </span>
-              <span className="absolute top-[-180px] right-[280px] font-normal text-[150px] text-slate-400">
-                03
-              </span>
+                <span className="absolute bottom-[24px] right-[-80px] font-normal text-[100px] text-slate-400 z-[-30]">
+                  03
+                </span>
+              </div>
+              <div className="flex flex-col justify-start items-start h-[180px] mb-[32px] text-[24px]">
+                <span className="my-[8px]">
+                  스프링클러는 주변에 물을 뿌리는 살수장치로
+                </span>
+                <span className="my-[8px]">화재의 초기 소화 목적으로 사용됩니다.</span>
+              </div>
             </div>
-            <div className="flex flex-col justify-around items-start h-[180px] mb-[64px] text-[32px]">
-              <span>스프링클러는 주변에 물을 뿌리는 살수장치로</span>
-              <span>화재의 초기 소화 목적으로 사용됩니다.</span>
+          </div>
+
+          <div className="flex justify-center items-end min-w-[100vw]">
+            <img
+              src="/Main_Info4.png"
+              alt=""
+              className="w-[450px] h-[450px] mr-[90px]"
+            />
+            <div className="flex flex-col justify-end items-start">
+              <div className="relative mb-[50px] font-bold text-[48px] z-0">
+                방염
+                <span className="absolute bottom-[24px] right-[-80px] font-normal text-[100px] text-slate-400 z-[-30]">
+                  04
+                </span>
+              </div>
+              <div className="flex flex-col justify-start items-start h-[180px] mb-[32px] text-[24px]">
+                <span className="my-[8px]">
+                  방염은 연소하기 쉬운 재질에 발화 및 화염확산을
+                </span>
+                <span className="my-[8px]">지연시키는 가공처리 방법을 말합니다.</span>
+                <span className="my-[8px]">
+                  화재의 발생빈도가 높고 화재 시 인적 또는 물적 피해가
+                </span>
+                <span className="my-[8px]">
+                  클 것으로 예상되는 특정 소방대상물에 사용하는
+                </span>
+                <span className="my-[8px]">
+                  실내마감재 등에 방염처리를 하여야 합니다.
+                </span>
+              </div>
             </div>
           </div>
         </div>
-        <div className="flex justify-start items-end mx-[60px]">
-          <img src="" alt="" className="w-[640px] h-[550px] mr-[90px]" />
-          <div>
-            <div className="relative mb-[50px] font-bold text-[64px]">
-              <span className="absolute top-[-64px] left-0 z-20">방염</span>
-              <span className="absolute top-[-180px] right-[280px] font-normal text-[150px] text-slate-400">
-                04
-              </span>
-            </div>
-            <div className="flex flex-col justify-around items-start h-[180px] mb-[64px] text-[32px]">
-              <span>방염은 연소하기 쉬운 재질에 발화 및 화염확산을</span>
-              <span>지연시키는 가공처리 방법을 말합니다.</span>
-              <span>화재의 발생빈도가 높고 화재 시 인적 또는 물적 피해가</span>
-              <span>클 것으로 예상되는 특정 소방대상물에 사용하는</span>
-              <span>실내마감재 등에 방염처리를 하여야 합니다.</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      </section>
 
       {/* Partner */}
       <div
-        className="bg-main flex flex-col justify-center items-center w-full h-[720px] py-[50px] px-[100px] text-white"
+        className="bg-main flex flex-col justify-center items-center w-full h-[calc(100vh-90px)] py-[50px] px-[100px] text-white"
         style={{
           backgroundImage: `url(${main_partner})`,
         }}
@@ -143,42 +209,42 @@ const Main: React.FC = () => {
         <div className="flex justify-center items-center w-full">
           <div className="flex justify-center items-center w-[240px] h-[80px] bg-white mx-[8px]">
             <img
-              src="/jj/main_partner1.png"
+              src="/main_partner1.png"
               alt="partner 이미지"
               className="w-[200px] h-[60px]"
             />
           </div>
           <div className="flex justify-center items-center w-[240px] h-[80px] bg-white mx-[8px]">
             <img
-              src="/jj/main_partner2.png"
+              src="/main_partner2.png"
               alt="partner 이미지"
               className="w-[200px] h-[60px]"
             />
           </div>
           <div className="flex justify-center items-center w-[240px] h-[80px] bg-white mx-[8px]">
             <img
-              src="/jj/main_partner3.png"
+              src="/main_partner3.png"
               alt="partner 이미지"
               className="w-[200px] h-[60px]"
             />
           </div>
           <div className="flex justify-center items-center w-[240px] h-[80px] bg-white mx-[8px]">
             <img
-              src="/jj/main_partner4.png"
+              src="/main_partner4.png"
               alt="partner 이미지"
               className="w-[200px] h-[60px]"
             />
           </div>
           <div className="flex justify-center items-center w-[240px] h-[80px] bg-white mx-[8px]">
             <img
-              src="/jj/main_partner5.png"
+              src="/main_partner5.png"
               alt="partner 이미지"
               className="w-[200px] h-[60px]"
             />
           </div>
           <div className="flex justify-center items-center w-[240px] h-[80px] bg-white mx-[8px]">
             <img
-              src="/jj/main_partner6.png"
+              src="/main_partner6.png"
               alt="partner 이미지"
               className="w-[200px] h-[60px]"
             />
@@ -187,7 +253,7 @@ const Main: React.FC = () => {
       </div>
 
       {/* Contact us */}
-      <div className="bg-white flex flex-col justify-center items-center w-full py-[60px] px-[200px]">
+      <div className="bg-white flex flex-col justify-center items-center w-full h-[calc(100vh-90px)] py-[60px] px-[200px]">
         <div className="font-bold text-[48px] mb-[30px]">Contact us</div>
         <Map
           center={{ lat: 37.646411, lng: 127.1251 }}

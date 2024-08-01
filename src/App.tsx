@@ -10,6 +10,7 @@ import Gallery from "./pages/Gallery";
 import GalleryDetail from "./pages/GalleryDetail";
 import Question from "./pages/Question";
 import AddGallery from "./admin/AddGallery";
+import Road from "./pages/Road";
 
 const App: React.FC = () => {
   return (
@@ -22,8 +23,9 @@ const App: React.FC = () => {
           <Route path="/business" element={<Business />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/gallery/:id" element={<GalleryDetail />} />
+          <Route path="/gallery/post" element={<AddGallery />} />
           <Route path="/question" element={<Question />} />
-          <Route path="/admin/gallery" element={<AddGallery />} />
+          <Route path="/road" element={<Road />} />
         </Routes>
         <Footer />
       </BrowserRouter>
